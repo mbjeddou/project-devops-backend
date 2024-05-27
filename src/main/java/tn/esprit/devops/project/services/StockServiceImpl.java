@@ -7,6 +7,7 @@ import tn.esprit.devops.project.services.Iservices.IStockService;
 import tn.esprit.devops.project.repositories.StockRepository;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @AllArgsConstructor
@@ -29,6 +30,13 @@ public class StockServiceImpl implements IStockService {
         return stockRepository.findAll();
     }
 
+    @Override
+    public void deleteStock(Long id) {
+        Stock existingStock = stockRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Stock not found"));
+
+        stockRepository.delete(existingStock);
+    }
 
 
 }
