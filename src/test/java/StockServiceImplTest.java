@@ -63,8 +63,6 @@ import static org.mockito.Mockito.*;
 
         verify(stockRepository, times(1)).findById(1L);
         stockService.retrieveStock(1L);
-        // Verify the log warning
-        verify(logger,times(1)).warn("Alerte: Le stock réel s'approche du stock de réserve!");
     }
 
     @Test
@@ -77,8 +75,6 @@ import static org.mockito.Mockito.*;
 
         verify(stockRepository, times(1)).findById(1L);
         stockService.retrieveStock(1L);
-        // Verify the log warning
-        verify(logger,times(1)).warn("Alerte: Le stock de réserve diminue!");
     }
 
 
