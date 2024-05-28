@@ -18,6 +18,9 @@ public class Stock implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long idStock;
     String title;
+    int realStock; // Stock réel
+    int reserveStock; // Stock de réserve
+
     @OneToMany(mappedBy = "stock")
    private Set<Product> products;
 }

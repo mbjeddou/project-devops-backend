@@ -4,8 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import tn.esprit.devops.project.entities.Invoice;
-import tn.esprit.devops.project.entities.Operator;
-import tn.esprit.devops.project.entities.Supplier;
 import tn.esprit.devops.project.repositories.InvoiceDetailRepository;
 import tn.esprit.devops.project.repositories.InvoiceRepository;
 import tn.esprit.devops.project.repositories.OperatorRepository;
@@ -35,7 +33,7 @@ public class InvoiceServiceImpl implements IInvoiceService {
 	@Override
 	public void cancelInvoice(Long invoiceId) {
 		// method 01
-		Invoice invoice = invoiceRepository.findById(invoiceId).orElseThrow(() -> new NullPointerException(INVOICE_NOT_FOUND));
+		var invoice = invoiceRepository.findById(invoiceId).orElseThrow(() -> new NullPointerException(INVOICE_NOT_FOUND));
 		invoice.setArchived(true);
 		invoiceRepository.save(invoice);
 		//method 02 (Avec JPQL)
@@ -50,14 +48,14 @@ public class InvoiceServiceImpl implements IInvoiceService {
 
 	@Override
 	public List<Invoice> getInvoicesBySupplier(Long idSupplier) {
-		Supplier supplier = supplierRepository.findById(idSupplier).orElseThrow(() -> new NullPointerException(SUPPLIER_NOT_FOUND));
+		var supplier = supplierRepository.findById(idSupplier).orElseThrow(() -> new NullPointerException(SUPPLIER_NOT_FOUND));
 		return (List<Invoice>) supplier.getInvoices();
 	}
 
 	@Override
 	public void assignOperatorToInvoice(Long idOperator, Long idInvoice) {
-		Invoice invoice = invoiceRepository.findById(idInvoice).orElseThrow(() -> new NullPointerException(INVOICE_NOT_FOUND));
-		Operator operator = operatorRepository.findById(idOperator).orElseThrow(() -> new NullPointerException(OPERATOR_NOT_FOUND));
+		var invoice = invoiceRepository.findById(idInvoice).orElseThrow(() -> new NullPointerException(INVOICE_NOT_FOUND));
+		var operator = operatorRepository.findById(idOperator).orElseThrow(() -> new NullPointerException(OPERATOR_NOT_FOUND));
 		operator.getInvoices().add(invoice);
 		operatorRepository.save(operator);
 	}
