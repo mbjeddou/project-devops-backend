@@ -4,12 +4,15 @@ import lombok.AllArgsConstructor;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
+import tn.esprit.devops.project.entities.Product;
 import tn.esprit.devops.project.entities.Stock;
 import tn.esprit.devops.project.services.Iservices.IStockService;
 import tn.esprit.devops.project.repositories.StockRepository;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 
 @Service
@@ -17,7 +20,9 @@ import java.util.NoSuchElementException;
 public class StockServiceImpl implements IStockService {
 
     private final StockRepository stockRepository;
-    private static final Logger logger = LoggerFactory.getLogger(StockServiceImpl.class);
+    private static  Logger logger = LoggerFactory.getLogger(StockServiceImpl.class);
+
+
 
     @Override
     public Stock addStock(Stock stock) {
@@ -51,6 +56,20 @@ public class StockServiceImpl implements IStockService {
             if (stock.getReserveStock() < 10) { // Par exemple, si le stock de réserve est inférieur à 10
                 logger.warn("Alerte: Le stock de réserve diminue!");
             }
+    }
+
+    @Override
+    public Product getMostUsedProduct(Long stockId) {
+        Optional<Stock> optionalStock = stockRepository.findById(stockId);
+        if (optionalStock.isPresent()) {
+            Stock stock = optionalStock.get();
+            return stock.getProducts().stream()
+                    .max(Comparator.comparingInt(Product::getQuantity))
+                    .orElse(null);
+        } else {
+            logger.warn("Stock with ID {} not found", stockId);
+            return null;
+        }
     }
 
 

@@ -1,5 +1,6 @@
 package tn.esprit.devops.project.services.Iservices;
 
+import tn.esprit.devops.project.entities.Product;
 import tn.esprit.devops.project.entities.Stock;
 
 import java.util.List;
@@ -11,4 +12,5 @@ public interface IStockService {
     List<Stock> retrieveAllStock();
     void deleteStock(Long id);
     void checkStockLevels(Long idStock);
+     Product getMostUsedProduct(Long stockId);
 }
