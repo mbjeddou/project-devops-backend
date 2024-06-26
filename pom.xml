@@ -8,9 +8,9 @@
         <version>2.7.6</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>tn.esprit</groupId>
+    <groupId>tn.esprit.DEVOPS</groupId>
     <artifactId>eventsProject</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0</version>
     <name>eventsProject</name>
     <description>eventsProject</description>
     <scm>
